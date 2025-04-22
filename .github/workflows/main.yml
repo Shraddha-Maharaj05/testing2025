@@ -19,12 +19,13 @@ jobs:
       with:
         dotnet-version: 9.0.x
 
-    - name: Restore dependencies
-      run: dotnet restore CyberSecurityChatBot.sln  # 🔧 Replace with the actual path to your .sln or .csproj
+   - name: Restore dependencies
+     run: dotnet restore src/CyberSecurityChatBot/CyberSecurityChatBot.csproj
 
-    - name: Build
-      run: dotnet build CyberSecurityChatBot.sln --no-restore  # 🔧 Optional: also specify here
+   - name: Build
+     run: dotnet build src/CyberSecurityChatBot/CyberSecurityChatBot.csproj --no-restore
 
-    - name: Test
-      run: dotnet test CyberSecurityChatBot.sln --no-build --verbosity normal  # 🔧 Optional: also specify here
+   - name: Test
+     run: dotnet test src/CyberSecurityChatBot/CyberSecurityChatBot.csproj --no-build --verbosity normal
+
 
