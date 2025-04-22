@@ -1,68 +1,30 @@
-name: C# Build and Syntax Check
+name: .NET CI Workflow
 
-on: 
-   push:
-     branches: ["main"] # Change to branch you pushed code too
-   pull_request:
-    
-    branches: ["main"] 
-
-jobs:
- build:
-   runs-on: ubuntu-latest # Uses a VM Runner
-
-   steps:
-    - name: Checkout Code # Clones the Repo
-      uses: actions/checkout@v4
-
-    # Setup SDK.NET
-    - name: Setup SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0' # Change to framework used
-
-    # Restore Dependancies
-    - name: Restore Dependancies
-      run: dotnet restore
-      
-    # Run Unit Tests
-    - name: Unit Tests
-      run: dotnet test
-
-    # Build the project
-    - name: Build
-      run: dotnet build --configuration Release
-    name: C# Build and Syntax Check
-
-on: 
-   push:
-     branches: ["main"] # Change to branch you pushed code too
-   pull_request:
-    
-    branches: ["main"] 
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
- build:
-   runs-on: ubuntu-latest # Uses a VM Runner
+  build:
 
-   steps:
-    - name: Checkout Code # Clones the Repo
-      uses: actions/checkout@v4
+    runs-on: ubuntu-latest
 
-    # Setup SDK.NET
-    - name: Setup SDK
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0' # Change to framework used
+        dotnet-version: 9.0.x
 
-    # Restore Dependancies
-    - name: Restore Dependancies
-      run: dotnet restore
-      
-    # Run Unit Tests
-    - name: Unit Tests
-      run: dotnet test
+    - name: Restore dependencies
+      run: dotnet restore CyberSecurityChatBot.sln  # 🔧 Replace with the actual path to your .sln or .csproj
 
-    # Build the project
     - name: Build
-      run: dotnet build --configuration Release
+      run: dotnet build CyberSecurityChatBot.sln --no-restore  # 🔧 Optional: also specify here
+
+    - name: Test
+      run: dotnet test CyberSecurityChatBot.sln --no-build --verbosity normal  # 🔧 Optional: also specify here
+
