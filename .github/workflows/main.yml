@@ -1,4 +1,4 @@
-name: .NET CI Workflow
+name: .NET CI Workflolw
 
 on:
   push:
@@ -8,22 +8,22 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 9.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
 
-      - name: Restore dependencies
-        run: dotnet restore src/CyberSecurityChatBot/CyberSecurityChatBot.csproj  # ← Update this path!
+    - name: Restore dependencies
+      run: dotnet restore
 
-      - name: Build
-        run: dotnet build src/CyberSecurityChatBot/CyberSecurityChatBot.csproj --no-restore  # ← Update this too
+    - name: Build
+      run: dotnet build --no-restore
 
-      - name: Test
-        run: dotnet test src/CyberSecurityChatBot/CyberSecurityChatBot.csproj --no-build --verbosity normal
-
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
