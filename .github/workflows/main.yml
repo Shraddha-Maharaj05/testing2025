@@ -1,29 +1,68 @@
-name: .NET CI Workflolw
+name: C# Build and Syntax Check
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: 
+   push:
+     branches: ["main"] # Change to branch you pushed code too
+   pull_request:
+    
+    branches: ["main"] 
 
 jobs:
-  build:
+ build:
+   runs-on: ubuntu-latest # Uses a VM Runner
 
-    runs-on: ubuntu-latest
+   steps:
+    - name: Checkout Code # Clones the Repo
+      uses: actions/checkout@v4
 
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Setup .NET
+    # Setup SDK.NET
+    - name: Setup SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: '9.0' # Change to framework used
 
-    - name: Restore dependencies
+    # Restore Dependancies
+    - name: Restore Dependancies
       run: dotnet restore
+      
+    # Run Unit Tests
+    - name: Unit Tests
+      run: dotnet test
 
+    # Build the project
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release
+    name: C# Build and Syntax Check
 
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+on: 
+   push:
+     branches: ["main"] # Change to branch you pushed code too
+   pull_request:
+    
+    branches: ["main"] 
+
+jobs:
+ build:
+   runs-on: ubuntu-latest # Uses a VM Runner
+
+   steps:
+    - name: Checkout Code # Clones the Repo
+      uses: actions/checkout@v4
+
+    # Setup SDK.NET
+    - name: Setup SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0' # Change to framework used
+
+    # Restore Dependancies
+    - name: Restore Dependancies
+      run: dotnet restore
+      
+    # Run Unit Tests
+    - name: Unit Tests
+      run: dotnet test
+
+    # Build the project
+    - name: Build
+      run: dotnet build --configuration Release
